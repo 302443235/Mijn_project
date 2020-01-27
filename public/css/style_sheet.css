@@ -1,0 +1,99 @@
+.imgCarousel {
+
+}
+
+.table-row{
+    cursor:pointer;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
+
+.divCarousel{
+    max-height: 150px;
+}
+
+.background {
+    background-color: #FFC4DD;
+}
+.nav-tabs > li > a:hover {
+    color: #FF7FB6;
+}
+.tableFixHead {
+    overflow-y: auto;
+    height: 150px;
+}
+
+.tableFixHead thead th {
+    position: sticky;
+    top: 0;
+}
+.tableFixHead  .table-bordered td,  .tableFixHead .table-bordered th {
+    border: 0px solid #dee2e6;
+}
+
+.tableFixHead table {
+    border-collapse: collapse;
+    margin-bottom: 1px;
+    width: 100%;
+}
+
+.tableFixHead th{
+    background:#b3b7bb;
+    color: #000;
+}
+
+.nav-tabs > li > a.nav-link.active {
+    color: #FF7FB6;
+
+}
+
+.carousel-inner img { width: 50%; margin: auto; }
+
+
+.custom-toggler.navbar-toggler {
+    border-color: #FF7FB6;
+}
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(232, 62, 140, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+.nav-tabs > li > a {
+    color: #000000;
+    font-size: 16px;
+}
+#myInput{
+    background-color: #ffffff;
+}
+
+#myInput:focus{
+    box-shadow: 0 1px 1px #FF7FB6  inset, 0 0 8px #FF7FB6 ;
+    outline: 0 none;
+    border-color:#FF7FB6 ;
+}
+
+.table{
+    margin-bottom:0px !important;
+}
+
+.modal-body{
+    width: 100%;
+    padding-bottom: 0px !important;
+}
+
+.pfont {
+    font-size: 16px;
+}
+
+h2 , h3 {
+    color: #FF7FB6;
+}
+
+.icon {
+    height:50px;
+}
+footer{
+    margin-top: 50px;
+    padding-top:20px;
+    background-color: #FFC4DD;
+}

@@ -1,0 +1,16 @@
+{% extends'admin_base.html.twig' %}
+
+{% block body %}
+
+    <div class="mx-auto p-5" style="width: 800px">
+
+    <h1>Training Toevoegen</h1>
+
+    {{ form_start(articleForm) }}
+    {{ form_widget(articleForm) }}
+    <button type="submit" class="btn btn-secondary">Create!</button>
+    {{ form_end(articleForm) }}
+
+    </div>
+
+{% endblock %}

@@ -3,10 +3,64 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="/css/bootstrap.min.css">
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    {% block nav %}
+
+        <img src="/img/kickboxing-icon-7.jpg" class="rounded float-left" width="200px" height="100px" title="Bootstrap">
+
+        <h1 class="text-danger font-weight-bold p-3">
+            Training Centrum<br> Den Haag
+        </h1>
+
+        <div class="container">
+
+            <nav class="navbar navbar-expand-sm border-top border-danger text-center justify-content-center">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{{ path('bezoeker_homepage') }}">Homepage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="#">Trainings Aanbod</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="#">Lid worden</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="#">Gedragregels</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{{ path('contact') }}">Locatie & contact</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="border border-grey m-auto p-2">
+                <div class="row align-items-start ">
+                    <div class="col" >
+                        <img src="/img/ada9a09acea936d776a6f55c82778c43_XL.jpg" class="d-block w-100" height="258px"></div>
+                    <div class="col">
+                        <img src="/img/fightclub-e1467728028534.jpg"  class="d-block w-100" >
+                    </div>
+                    <div class="col">
+                        <img src="/img/maxresdefault.jpg" class="d-block w-100" height="258px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+        {% block body %} {% endblock %}
+        {% block javascripts %}
+            <script src="/js/bootstrap.min.js"></script>
+            <script src="/js/jquery-3.4.1.min.js.js"></script>
+
+        {% endblock %}
+        <footer class="card bg-secondary font-weight-bolder text-danger text-center p-3">
+            <p>Training Centrum Den Haag 010 619 0512</p>
+            <p class="text-white p-26">Developed bij FastDevelopment 2018</p>
+        </footer>
     </body>
 </html>

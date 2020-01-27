@@ -3,29 +3,39 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use App\Entity\Training;
+use App\Repository\TrainingRepository;
+use App\Form\ArticleFormType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="bezoeker_homepage")
      */
 
     public function homepage()
     {
-        return new Response('OMG! My first page already! WOOO!');
+        return $this->render('bezoeker/bezoeker_hompepage.html.twig');
     }
 
     /**
-     * @Route("/news/{slug}")
+     * @Route("/contact", name="contact")
      */
 
-    public function show($slug)
+    public function contact()
     {
-        return $this->render('article/show.html.twig', [
-            'title' => ucwords(str_replace('-', ' ', $slug)),
-        ]);
+        return $this->render('bezoeker/contact.html.twig');
     }
+
+
+
 }

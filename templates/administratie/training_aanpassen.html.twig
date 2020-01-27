@@ -1,0 +1,13 @@
+{% extends'admin_base.html.twig' %}
+{% block body %}
+    <div class="mx-auto p-5" style="width: 800px">
+    <h1>Edit the Article!</h1>
+    {{ form_start(articleForm) }}
+    {{ form_row(articleForm.naam) }}
+    {{ form_row(articleForm.description) }}
+    {{ form_row(articleForm.duration) }}
+        {{ form_row(articleForm.costs) }}
+    <button type="submit" class="btn btn-primary">Update!</button>
+    {{ form_end(articleForm) }}
+    </div>
+{% endblock %}

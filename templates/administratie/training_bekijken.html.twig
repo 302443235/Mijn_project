@@ -1,0 +1,35 @@
+{% extends'admin_base.html.twig' %}
+{% block body %}
+    <div class="mx-auto p-5" style="width: 800px">
+    <h1> Training Lijst</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Beschrijving</th>
+            <th>Looptijd</th>
+            <th>Prijs</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.naam }}</td>
+                <td>{{ article.description }}</td>
+                <td>{{ article.duration }}</td>
+                <td>{{ article.costs }}</td>
+                <td>
+                    <a href="{{ path('training_aanpassen', {id: article.id}) }}" class="btn btn-primary ">
+                        Aanpassen <span class="fa fa-plus-circle"></span> </a>
+                    <a href="{{ path('training_verwijderen', {id: article.id}) }}" class="btn btn-danger">
+                        Verwijderen <span class="fa fa-plus-circle"></span> </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <a href="{{ path('training_toevoegen') }}" class="btn btn-primary pull-right">
+        Create  <span class="fa fa-plus-circle"></span></a>
+{% endblock %}
