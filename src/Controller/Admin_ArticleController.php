@@ -3,16 +3,21 @@
 
 namespace App\Controller;
 
+use App\Entity\Registration;
 use App\Entity\Training;
+use App\Entity\User;
+use App\Form\RegistrationType;
 use App\Repository\TrainingRepository;
 use App\Form\ArticleFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\ArticleRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserCheckerInterface;
 
 class Admin_ArticleController extends AbstractController
 {
@@ -20,20 +25,29 @@ class Admin_ArticleController extends AbstractController
      * @Route("/admin_homepage", name="admin_homepage")
      */
 
-    public function homepage()
+    public function homepage(UserRepository $userRepository)
     {
-        return $this->render('administratie/admin_homepage.html.twig');
+            $user = $userRepository->find(['id'=>$this->getUser()]);
+
+        return $this->render('administratie/admin_homepage.html.twig',[
+            'users' =>$user
+        ]);
     }
 
     /**
      * @Route("/training_bekijken", name="training_bekijken")
      */
-    public function trainingBekijken(TrainingRepository $articleRepo)
+    public function trainingBekijken(TrainingRepository $articleRepo,UserRepository  $userRepository)
     {
         {
+
             $articles = $articleRepo->findAll();
+
+
             return $this->render('administratie/training_bekijken.html.twig', [
                 'articles' => $articles,
+
+//
             ]);
         }
     }
@@ -103,5 +117,44 @@ class Admin_ArticleController extends AbstractController
         $em->remove($training);
         $em->flush();
         return $this->redirectToRoute('training_bekijken');
+    }
+
+    /**
+     * @Route("/registration", name="registration")
+     */
+    public function registreren(Request $request,EntityManagerInterface $entityManager , UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $form = $this->createForm(RegistrationType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $data = $form->getData();
+            $user = new User();
+
+            $user->setFirstname($data['voornaam']);
+            $user->setLastname($data['achternaam']);
+            $user->setLoginname($data['loginnaam']);
+            $user->setPreprovision($data['preprovision']);
+            $user->setDateofbirth($data['dateofbirth']);
+            $user->setGender($data['gender']);
+
+            $user->setStreet($data['street']);
+            $user->setPostcode($data['postcode']);
+            $user->setPlace($data['place']);
+            $user->setEmail($data['email']);
+            $passwordEncoder = $passwordEncoder->encodePassword($user,$data['password']);
+            $user->setPassword(  $passwordEncoder);
+
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirect("/login");
+        }
+        return $this->render('bezoeker/registration.html.twig', [
+            'form' => $form->createView() ,
+            'controller_name' => 'Controller',
+        ]);
     }
 }
