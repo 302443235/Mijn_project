@@ -40,14 +40,13 @@ class Admin_ArticleController extends AbstractController
     public function trainingBekijken(TrainingRepository $articleRepo,UserRepository  $userRepository)
     {
         {
-
+            $user = $userRepository->find(['id'=>$this->getUser()]);
             $articles = $articleRepo->findAll();
 
 
             return $this->render('administratie/training_bekijken.html.twig', [
                 'articles' => $articles,
-
-//
+                'users' =>$user
             ]);
         }
     }
@@ -55,7 +54,7 @@ class Admin_ArticleController extends AbstractController
     /**
      * @Route("/training_toevoegen", name="training_toevoegen")
      */
-    public function new(EntityManagerInterface $em, Request $request)
+    public function new(EntityManagerInterface $em, Request $request, UserRepository  $userRepository)
     {
         $form = $this->createForm(ArticleFormType::class);
 
@@ -73,16 +72,18 @@ class Admin_ArticleController extends AbstractController
             return $this->redirectToRoute('training_bekijken');
         }
 
+        $user = $userRepository->find(['id'=>$this->getUser()]);
         return $this->render(
             'administratie/training_toevoegen.html.twig', [
-            'articleForm' => $form->createView()
+            'articleForm' => $form->createView(),
+            'users' =>$user
         ]);
     }
 
     /**
      * @Route("/{id}/training_aanpassen", name="training_aanpassen")
      */
-    public function trainingAanpassen($id, EntityManagerInterface $em, Request $request)
+    public function trainingAanpassen($id, EntityManagerInterface $em, Request $request, UserRepository  $userRepository)
     {
         $training = new Training();
         $training = $this->getDoctrine()->getRepository(Training::class)->find($id);
@@ -101,9 +102,11 @@ class Admin_ArticleController extends AbstractController
             ]);
 
         }
+        $user = $userRepository->find(['id'=>$this->getUser()]);
 
         return $this->render('administratie/training_aanpassen.html.twig', [
-            'articleForm' => $form->createView()
+            'articleForm' => $form->createView(),
+            'users' =>$user
         ]);
 
     }
@@ -132,15 +135,15 @@ class Admin_ArticleController extends AbstractController
             $data = $form->getData();
             $user = new User();
 
-            $user->setFirstname($data['voornaam']);
-            $user->setLastname($data['achternaam']);
-            $user->setLoginname($data['loginnaam']);
+            $user->setFirstname($data['firstname']);
+            $user->setLastname($data['lastname']);
+            $user->setLoginname($data['loginname']);
             $user->setPreprovision($data['preprovision']);
             $user->setDateofbirth($data['dateofbirth']);
             $user->setGender($data['gender']);
-
+            $user->setRoles(['ROLE_USER']);
             $user->setStreet($data['street']);
-            $user->setPostcode($data['postcode']);
+            $user->setPostelCode($data['postel_code']);
             $user->setPlace($data['place']);
             $user->setEmail($data['email']);
             $passwordEncoder = $passwordEncoder->encodePassword($user,$data['password']);

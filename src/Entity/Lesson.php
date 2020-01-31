@@ -38,15 +38,11 @@ class Lesson
      */
     private $max_person;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Person", inversedBy="Lesson")
-     */
-    private $id_person;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Training", inversedBy="Lesson")
      */
-    private $id_training;
+    private $training;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Registration", mappedBy="lesson")
@@ -111,26 +107,16 @@ class Lesson
         return $this;
     }
 
-    public function getIdPerson(): ?Person
+
+
+    public function getTraining(): ?Training
     {
-        return $this->id_person;
+        return $this->training;
     }
 
-    public function setIdPerson(?Person $id_person): self
+    public function setTraining(?Training $training): self
     {
-        $this->id_person = $id_person;
-
-        return $this;
-    }
-
-    public function getIdTraining(): ?Training
-    {
-        return $this->id_training;
-    }
-
-    public function setIdTraining(?Training $id_training): self
-    {
-        $this->id_training = $id_training;
+        $this->training = $training;
 
         return $this;
     }

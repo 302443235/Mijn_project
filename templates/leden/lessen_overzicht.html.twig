@@ -1,0 +1,37 @@
+{% extends'leden.base.html.twig' %}
+{% block body %}
+<div class="mx-auto p-5" style="width: 800px">
+    <h1> Training Lijst</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Datum</th>
+            <th scope="col">Tijd</th>
+            <th scope="col">Sport</th>
+
+            <th scope="col">Uischrijven</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for les in lesson %}
+            <tr>
+                <th >{{ les.lesson.date |date('Y-m-d') }}</th>
+                <th >{{ les.lesson.time |date('H:i:s') }}</th>
+                <th >{{ les.lesson.training.naam }}</th>
+
+
+                <th scope="col"><form method="post">
+                        <button value="{{ les.id }}" name="uitschijven" class="btn-dark" type="submit">X</button>
+                    </form></th>
+
+
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

@@ -19,24 +19,25 @@
     <div class="container">
 
         <nav class="navbar navbar-expand-sm border-top border-danger text-center justify-content-center">
+
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-danger" href="{{ path('admin_homepage') }}">Homepage</a>
+                    <a class="nav-link text-danger" href="{{ path('leden_homepage') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-danger" href="#">Instructeurs</a>
+                    <a class="nav-link text-danger" href="#">Inschrijven op les</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-danger" href="#">Leden</a>
+                    <a class="nav-link text-danger" href="{{ path('lessen_overzicht') }}">Overzicht inschrijvingen</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-danger" href="{{ path('training_bekijken') }}">Trainingen</a>
-                </li>
-            </ul>
-            <div class="nav-item" style="    padding: 12px;" >
 
-                Welkome {{ users.firstName}}  {{ users.lastName}}
-            </div>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ path('profiel', {
+                        id: users.id
+                    }) }}">Gegevens lid Wijzigen</a>                    </li>
+
+            </ul>
+
             <button type="button" class="btn btn-dark"><a class="btn btn-dark" href="/logout">Uitloggen</a> </button>
 
         </nav>

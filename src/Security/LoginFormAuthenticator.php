@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,9 +29,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $userRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(UserRepository $userRepository, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -95,7 +98,17 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         }
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        return new RedirectResponse($this->urlGenerator->generate('admin_homepage'));
+        // redirect to some "app_homepage" route-of wherever you want//
+        //dd($token-> getRoles());
+        $getGegevens_gebruiker = $this->getCredentials($request);
+
+        $role = $this->userRepository->findOneBy(['email' => $getGegevens_gebruiker['email']])->getRoles();
+        if ($role == ["ROLE_USER"]) {
+            return new RedirectResponse($this->urlGenerator->generate('leden_homepage'));
+
+        } else if ($role == ["ROLE_ADMIN"]) {
+            return new RedirectResponse($this->urlGenerator->generate('admin_homepage'));
+        }
     }
 
     protected function getLoginUrl()

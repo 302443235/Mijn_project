@@ -18,9 +18,9 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('voornaam',TextType::class)
-            ->add('achternaam',TextType::class)
-            ->add('loginnaam',TextType::class)
+            ->add('firstname',TextType::class)
+            ->add('lastname',TextType::class)
+            ->add('loginname',TextType::class)
             ->add('email',EmailType::class)
             ->add('password',TextType::class)
             ->add('preprovision',TextType::class)
@@ -30,7 +30,7 @@ class RegistrationType extends AbstractType
             ])
 
             ->add('street',TextType::class)
-            ->add('postcode',TextType::class)
+            ->add('postel_code',TextType::class)
             ->add('place',TextType::class)
         ;
     }

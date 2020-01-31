@@ -1,0 +1,29 @@
+{% extends'leden.base.html.twig' %}
+
+{% block body %}
+    <div style="max-width: 600px;     margin: auto;padding: 20px">
+
+
+        <h1>Gegevens wijzigen! ?</h1>
+        {{ form_start(editForm) }}
+        <label class="labe"> Acternaam: </label>
+        <input name="lastname" type="text" value="{{ users.lastname }}" class="form-control">
+
+        <label class="labe"> Voornaam: </label>
+        <input name="firstname" type="text" value="{{ users.firstname }}" class="form-control"/>
+
+
+        <label class="labe"> Adres : </label>
+        <input name="street" type="text" value="{{ users.street }}" class="form-control"/>
+
+
+
+        <label class="labe"> Woonplaats: </label>
+        <input name="place" type="text" value="{{ users.place }}" class="form-control"/>
+
+        {{ form_row(editForm.dateofbirth, { 'label': 'Geboortedatum: '}) }}
+
+        <button type="submit" class="btn btn-dark">Update!</button>
+        {{ form_end(editForm) }}
+    </div>
+{% endblock %}
