@@ -1,2 +1,28 @@
 {% extends'leden.base.html.twig' %}
+{% block body %}
+<div class="mx-auto p-5" style="width: 800px">
+    <h1> Inschrijven op les</h1>
+    <table class="table">
 
+        <tbody>
+        {% for lesson in lessons %}
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ lesson.training.naam }}</h5>
+                    <p class="card-text"> {{ lesson.training.description }} </p>
+                    <p class="card-text"> Datum:  {{ lesson.date|date('d-m-Y') }}</p>
+                    <p class="card-text"> Tijd:  {{ lesson.time|date('H:i') }}</p>
+                    <form method="post">
+
+                        <button class="btn btn-dark" type="submit" name="inschrijving" value="{{ lesson.id }}">Inschrijven</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

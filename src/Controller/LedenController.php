@@ -95,23 +95,49 @@ class LedenController extends AbstractController
     public function lessenOverzicht(TrainingRepository $trainingRepository,Request $request,EntityManagerInterface $entityManager,UserRepository $userRepository,RegistrationRepository $registrationRepository,LessonRepository $lessonRepository)
     {
         {
-            $users =  $userRepository->find($this->getUser());
+            $users = $userRepository->find($this->getUser());
             $registration = $registrationRepository->findBy(['user' => $users->getId()]);
 
-            if (isset($_POST['uitschijven'])){
+            if (isset($_POST['uitschijven'])) {
                 $data = $_POST['uitschijven'];
                 $entityManager->remove($registrationRepository->find($data));
                 $entityManager->flush();
                 echo "Werkt";
 
                 $this->addFlash("remove", "Het is verwijderd");
-                return $this->redirectToRoute("app_deelnemer_overzicht");
+                return $this->redirectToRoute("lessen_overzicht");
             }
 
             return $this->render('leden/lessen_overzicht.html.twig', [
-                "users" =>  $users ,
+                "users" => $users,
                 "lesson" => $registration
             ]);
         }
+    }
+
+
+
+
+    /**
+     * @Route("/inschrijving" , name="inschrijving")
+     */
+    public function inschrijving(EntityManagerInterface $entityManager, UserRepository $userRepository, TrainingRepository $trainingRepository, LessonRepository $lessonRepository)
+    {
+        $users = $userRepository->find($this->getUser());
+        if (isset($_POST['inschrijving'])) {
+            $registration = new Registration();
+            $registration->setUser($users);
+            $lesson = $lessonRepository->find($_POST['inschrijving']);
+            $registration->setLesson($lesson);
+
+            $entityManager->persist($registration);
+            $entityManager->flush();
+
+            return $this->redirect("/lessen_overzicht");
+        }
+
+        return $this->render("leden/inschrijven_les.html.twig", [
+            "users" => $users, "lessons" => $lessonRepository->findAll()
+        ]);
     }
 }

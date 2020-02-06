@@ -21,7 +21,7 @@ class LessonFormType extends AbstractType
             ->add('datum',TextType::class)
             ->add('locatie',TextType::class)
             ->add('max_persoon',EmailType::class)
-            ->add('aantal_persoon',TextType::class)
+            ->add('aantal_person',TextType::class)
             ->add('sport',TextType::class)
         ;
     }
